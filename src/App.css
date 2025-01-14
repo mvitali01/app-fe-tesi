@@ -1,28 +1,82 @@
 .App {
   text-align: center;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+body{
+  background: gold;
+  color: black;
+}
+table{
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+}
+input{
+  border-radius: 4px;
+  width: 250px;
+  height: 25px;
+}
+input[type="file"]{
+  width: 300px;
+  height: 27px;
+  font-size: large ;
+  -webkit-text-fill-color: black;
 
+}
+input[type="checkbox"]{
+  width: 15px;
+  height: 10px;
+}
+input[type="radio"]{
+  width: 10px;
+  height: 10px;
+}
+button[id="refresh_button"]{
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: black;
+}
+button{
+  margin: 10px 10px 10px 10px;
+  background-color: #0096FF;
+  border-radius: 4px;
+  width: 200px;
+  height: 50px;
+  font-size: large;
+  -webkit-text-fill-color: whitesmoke;
+  text-align: center;
+}
+select[name="corsi"]{
+  margin: 10px 10px 10px 10px;
+  border-radius: 4px;
+  width: 310px;
+  height: 90px;
+}
+select{
+  margin: 10px 10px 10px 10px;
+  border-radius: 4px;
+  width: 310px;
+  height: 25px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
+/*.App-header {
+  background-color: gold;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
-}
+  color: black;
+}*/
 
 .App-link {
   color: #61dafb;
