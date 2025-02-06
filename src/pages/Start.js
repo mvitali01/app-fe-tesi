@@ -63,7 +63,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload1',true)
+        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload1',true)
         xhr.send(formData); //Invio dei dati
     }
     const upload_file_2=()=>{
@@ -84,7 +84,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload2',true)
+        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload2',true)
         xhr.send(formData); //Invio dei dati
     }
     const upload_file_3=()=>{
@@ -105,7 +105,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload3',true)
+        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload3',true)
         xhr.send(formData); //Invio dei dati
     }
     const logo = <ImageComponent align="left" side="100"/>

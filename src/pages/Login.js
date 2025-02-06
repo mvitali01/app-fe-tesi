@@ -28,7 +28,7 @@ const Login = () =>{
                     navigate('/start')
                 }
             };
-            xhr.open('GET','http://34.225.255.18:3000/api/v1/file/generated');
+            xhr.open('GET','http://<IP_EC2>:3000/api/v1/file/generated');
             xhr.send()
         }
     }
