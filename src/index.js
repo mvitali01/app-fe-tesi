@@ -10,8 +10,8 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<NavMenu/>}>
-                    <Route index element={<Start/>}/>
-                    <Route path="login" element={<Login/>}/>
+                    <Route index element={<Login/>}/>
+                    <Route path="start" element={<Start/>}/>
                     <Route path="menu" element={<MainMenu/>}/>
                     <Route path="addnewdocent" element={<AddNewDocent/>}/>
                 </Route> 

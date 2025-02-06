@@ -1,19 +1,24 @@
 import { Link, Outlet } from "react-router-dom"
+import { useEffect, useState } from "react"
 import '../App.css'
 const NavMenu = () =>{
+    const [apigClient,setApigClient] = useState(null)
+    useEffect(()=>{
+        if(window.apigClientFactory){
+            const client = window.apigClientFactory.newClient();
+            setApigClient(client)
+            console.log("Apig Client avviato")
+        }else{
+            console.error("non ho trovato l'apig client")
+        }
+    },[])
     return(
         <>
             <nav>
-                <font face="Arial">
-                    <table align="center" width="100%">
-                        <tr>
-                            <th align="center"><Link to="/"></Link></th>
-                            <th align="center"><Link to="/login"></Link></th>
-                            <th align="center"><Link to="/menu"></Link></th>
-                            <th align="center"><Link to="/addnewdocent"></Link></th>
-                        </tr>
-                </table>
-                </font>
+                <Link to="/"></Link>
+                <Link to="/start"></Link>
+                <Link to="/menu"></Link>
+                <Link to="/addnewdocent"></Link>
             </nav>
             <Outlet/>
         </>

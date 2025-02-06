@@ -2,154 +2,141 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import ImageComponent from "./ImageComponent";
 const Start = () => {
+    const apigClient = window.apigClientFactory.newClient();
     const navigate = useNavigate();
-    //const file1 = document.getElementById("bin1");
-    //const file2 = document.getElementById("bin2");
-    //const file3 = document.getElementById("bin3");
-    //const upload_warning = alert("Per favore carica i file");
-    const up_start=()=>{
-        console.log(sessionStorage.length)
-        if(sessionStorage.length !== 0){
-            navigate("/login")
-        }
-    }
-    const gotoLogin = () =>{
-        upload_file()
+    const gotoMainMenu = () =>{
+        upload_file_1()
         upload_file_2()
         upload_file_3()
-        //console.log({file1}+" "+{file2}+" "+{file3});
-        navigate('/login');
+        var params = {};
+        var body = {}; 
+        var additionalParams = {};
+        apigClient.apiV1AlgorithmStartPost(params, body, additionalParams)
+        .then(function(result){
+            //This is where you would put a success callback
+            console.log("Algoritmo avviato con successo\n"+JSON.stringify(result,'',2))   
+            setInterval(getStatus(),10000)
+        }).catch( function(result){
+            //This is where you would put an error callback
+            console.error("Errore partenza dell'APP:"+result)
+        });
     }
-    const  upload_file=()=>{
-        var fileS = document.getElementById("garanti").files;
-        var actF;
-        for (var i=0;i<fileS.length;i++){
-            actF = fileS[i];
-            const date = new Date();
-            const up_date = date.toLocaleString();
-            console.log("Name:"+actF.name+" Size:"+actF.size+" Type:"+actF.type+" Upload date:"+up_date);
-            var reader = new FileReader();
-            reader.onload = function(event){
-                var text = event.target.result;
-                const csv = text.split();
-                console.log(csv)
-                //document.getElementById("garanti").innerHTML= text;
-                sessionStorage.setItem("contentFile",csv)
-                reader.onload = () =>{
-                        const csvContent = reader.result;
-                        console.log(csvContent);
-    
-                }
-            }
-        }
-        reader.readAsText(actF)
-        sessionStorage.setItem("file",actF)
-           /*var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                  // Il file è stato caricato correttamente
-                  console.log("File caricato con successo!");
-                }
-              };
-            xhr.open("POST", "https://drive.google.com/drive/folders/1w5F7N2SZQR8E-F2k5w0qHP5Of5GkQ6XU?usp=sharing", true);
-            xhr.withCredentials = true
-            //xhr.open("post","fileup.php")
-            // Impostiamo l'header "Content-Type" su "multipart/form-data"
-            xhr.setRequestHeader("Content-Type", "multipart/form-data");
-            // Creiamo un oggetto FormData e aggiungiamo il file selezionato
-            const formData = new FormData();
-            formData.append("file", actF);
-            
-            // Inviamo la richiesta al server con il metodo "send"
-            xhr.send(formData);*/
-            /*const formData = new FormData();
-            formData.append("file",actF)
-            fetch('upload',{method: "POST",  body: formData});*/
-            //fileSystem = "file database"
-            //fileSystem.root = "/Users/micheleviitali/Desktop/React/app-fe-tesi/src/dati"
-            //console.log(fileSystem.name+" "+fileSystem.root)
-            //const fs = require("fs")
-            //fs.writeFile("/Users/micheleviitali/Desktop/React/app-fe-tesi/src/pages/upload",sessionStorage.getItem("contentFile"),(err)=>{if(err) throw err})
-    }
-    const upload_file_2=()=>{
-        const fileS = document.getElementById("corso_laurea").files;
-        var actF;
-        for (var i=0;i<fileS.length;i++){
-            actF = fileS[i];
-            const date = new Date();
-            const up_date = date.toLocaleString();
-            console.log("Name:"+actF.name+" Size:"+actF.size+" Type:"+actF.type+" Upload date:"+up_date);
-            var reader = new FileReader();
-            reader.onload = function(event){
-                var text = event.target.result;
-                const csv = text.split();
-                console.log(csv)
-                //document.getElementById("corso_laurea").innerHTML= text;
-                sessionStorage.setItem("corsi_laurea",csv)
-                reader.onload = () =>{
-                        const csvContent = reader.result;
-                        console.log(csvContent);
-                }
-            }
-        }
-        reader.readAsText(actF)
-        sessionStorage.setItem("file2",actF)
+    const getStatus=()=>{
+        var stato='running'
+        var params = {};
+        var body = {}; 
+        var additionalParams = {};
+        apigClient.apiV1AlgorithmStatusGet(params, body, additionalParams)
+                .then(function(result){
+                    //This is where you would put a success callback
+                    console.log("Stato algoritmo:\n"+JSON.stringify(result,'',2))
+                    stato =result.data.status
+                    localStorage.setItem("status",stato)
+                    if(stato !=='finished'){
+                        console.log('L\'algoritmo sta ancora lavorando')
+                    }else{
+                         console.log("finito")
+                         navigate('/menu')
+                         
+                    }
+                }).catch( function(result){
+                    //This is where you would put an error callback
+                    console.error("Errore:\n"+JSON.stringify(result))
+                });
 
     }
-    const upload_file_3=()=>{
-        const fileS = document.getElementById("corsi").files;
-        var actF;
-        for (var i=0;i<fileS.length;i++){
-            actF = fileS[i];
-            const date = new Date();
-            const up_date = date.toLocaleString();
-            console.log("Name:"+actF.name+" Size:"+actF.size+" Type:"+actF.type+" Upload date:"+up_date);
-            var reader = new FileReader();
-            reader.onload = function(event){
-                var text = event.target.result;
-                const csv = text.split();
-                console.log(csv)
-                //document.getElementById("corsi").innerHTML= text;
-                sessionStorage.setItem("corsi_cont",csv)
-                reader.onload = () =>{
-                        const csvContent = reader.result;
-                        console.log(csvContent);
-                }
+    const  upload_file_1=()=>{
+        var file1 = document.getElementById("excel_doc");
+        var file = file1.files[0];
+        const date = new Date();
+        const up_date = date.toLocaleString();
+        //Stampa su console le caratteristiche del file e la data di caricamento
+        console.log("Name:"+file.name+" Size:"+file.size+" Type:"+file.type+" Upload date:"+up_date);
+        //Ogetto che conterrà il file da inviare
+        const formData = new FormData();
+        formData.append("file",file,file.name)
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              // Il file è stato caricato correttamente
+              console.log("File caricato con successo!\n"+xhr.response);
             }
-        }
-        reader.readAsText(actF)
-        sessionStorage.setItem("file3",actF)
+        };
+        //Richiesta al server
+        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload1',true)
+        xhr.send(formData); //Invio dei dati
+    }
+    const upload_file_2=()=>{
+        var file2 = document.getElementById("excel_degree");
+        var file = file2.files[0];
+        const date = new Date();
+        const up_date = date.toLocaleString();
+        //Stampa su console le caratteristiche del file e la data di caricamento
+        console.log("Name:"+file.name+" Size:"+file.size+" Type:"+file.type+" Upload date:"+up_date);
+         //Ogetto che conterrà il file da inviare
+        const formData = new FormData();
+        formData.append("file2",file,file.name)
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              // Il file è stato caricato correttamente
+              console.log("File caricato con successo!\n"+xhr.response);
+            }
+        };
+        //Richiesta al server
+        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload2',true)
+        xhr.send(formData); //Invio dei dati
+    }
+    const upload_file_3=()=>{
+        var file3 = document.getElementById("excel_courses");
+        var file = file3.files[0];
+        const date = new Date();
+        const up_date = date.toLocaleString();
+        //Stampa su console le caratteristiche del file e la data di caricamento
+        console.log("Name:"+file.name+" Size:"+file.size+" Type:"+file.type+" Upload date:"+up_date);
+        const formData = new FormData();
+        const xhr = new XMLHttpRequest();
+        //Ogetto che conterrà il file da inviare
+        formData.append("file3",file,file.name)
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              // Il file è stato caricato correttamente
+              console.log("File caricato con successo!\n"+xhr.response);
+            }
+        };
+        //Richiesta al server
+        xhr.open('POST','http://34.225.255.18:3000/api/v1/files/upload3',true)
+        xhr.send(formData); //Invio dei dati
     }
     const logo = <ImageComponent align="left" side="100"/>
     return(
         <>
-            {up_start()}
             <font face="Arial">
                 {logo}
                 <h1 align="center"> <br/> Benvenuto nella tua nuova area di lavoro</h1>
                 <br/>
                 <hr/>
                 <h2>
-                    Prima di procedere con l'accesso con le credenziali fornite dal sistema<br/>
-                    sarà necessario caricare 3 file di tipo binario.<br/>
+                    Prima di procedere al menù princiaple e visualizzare i docenti garanti<br/>
+                    sarà necessario caricare 3 file excel.<br/>
                     Il contenuto per ciascun file deve esssere il seguente:<br/>
-                    <form>
+                    <form encType="multipart\form-data">
                     <ol>
                         <li>
-                            Il file binario con l'elenco dei professori:<br/>
-                            <input  id="garanti" name="fileP" type="file" accept=".csv" /><br/>
+                            Il file excel con l'elenco dei professori:<br/>
+                            <input  id="excel_doc" name="fileP" type="file" accept=".xls, .xlsx" /><br/>
                         </li>
                         <li>
-                            Il file binario con l'elenco dei corsi di laurea:<br/>
-                            <input id="corso_laurea" type="file" accept=".csv"/><br/>
+                            Il file excel con l'elenco dei corsi di laurea:<br/>
+                            <input id="excel_degree" type="file" accept=".xls, .xlsx"/><br/>
                         </li>
                         <li>
-                            Il file binario con l'elenco dei singoli corsi per corso di laurea:<br/>
-                            <input id="corsi" type="file" accept=".csv" /><br/>
+                            Il file exel con l'elenco dei corsi offerti dall'università:<br/>
+                            <input id='excel_courses' type='file' accept=".xls, .xlsx"/>
                         </li>
                     </ol>
                     </form>
-                    <button onClick={gotoLogin}>Procedi con il login</button>  
+                    <button onClick={gotoMainMenu}>Procedi al menù principale</button>  
                 </h2> 
             </font>
         </>

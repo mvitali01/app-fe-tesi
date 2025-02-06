@@ -3,23 +3,33 @@ import ImageComponent from "./ImageComponent";
 import { useNavigate } from "react-router-dom";
 
 const Login = () =>{
-    //Funzione per andare alla pagina del menù principale
     const navigate = useNavigate();
-    const gotoMainMenu= ()=>{
+    //Funzione per andare alla pagina di caricamento dei file
+    const gotoStart= ()=>{
         const username = document.getElementById("username").value;
         const pass = document.getElementById("pass").value;
         //Controlla se le credenziali vuote
         if((username === null || username ==="" ) || (pass===null || pass==="")){
             alert("per favore inserisci le credenziali");
-            navigate('/login')
         }
         //Controlla se le credenziali sono corrette: le credenziali sono fasulle
-        else if (username !=="michelevitali@gmail.com" && pass!=="vitali") {
+        else if (username !=="username@example.com" && pass!=="passowrd") {
             alert("Credenziali errate")
         }
-        //Si prosegue al menù principale
+        //Si prosegue alla pagina di caricamento dei file
         else{
-            navigate('/menu')
+            //Ogetto che vede se esiste un file
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    navigate('/menu')
+                }else{
+                    //console.log(xhr.responseText)
+                    navigate('/start')
+                }
+            };
+            xhr.open('GET','http://34.225.255.18:3000/api/v1/file/generated');
+            xhr.send()
         }
     }
     //Componente  del logo dell'università
@@ -27,21 +37,23 @@ const Login = () =>{
     return(
         <>
             <font face="Arial">
-                <p align="center">
-                    {logoLogin}<hr/>
-                    <h1><b>Autenticazione</b></h1>
+                    <h1 align="center">{logoLogin}</h1><hr/>
+                    <h1 align="center" ><b>Autenticazione</b></h1>
+                    <h2 align="center">
                     <table bgcolor="white" align="center" width="50%">
-                        <th>
-                            <h2 align="center">
-                                <b>Nome Utente:</b><br/><br/>
-                                <input id="username" type="email" /><br/><br/>
-                                <b>Password:</b><br/><br/>
-                                <input id="pass" type="password" /><br/><br/>
-                                <button onClick={gotoMainMenu}>Accedi</button>
-                            </h2>
-                        </th>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Nome Utente:</b><br/><br/>
+                                    <input id="username" type="email" /><br/><br/>
+                                    <b>Password:</b><br/><br/>
+                                    <input id="pass" type="password" /><br/><br/>
+                                    <button onClick={gotoStart}>Accedi</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                </p>
+                    </h2>
             </font>
         </>
     );
