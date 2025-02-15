@@ -1,0 +1,25 @@
+@startuml Diagramma di sequenza: upload file
+Utente -> Start : Accede alla pagina
+Utente -> Start : Carica i 3 file
+Start -> API : Invoca le API per ciascun file
+API -> Server : Invia i file
+Server -> API : restituisce un messaggio
+alt : upload eseguito con successo
+ API->Start : messaggio di successo
+ Start->API : invoca l'API di start
+ API->Server: contatta il server
+ Server->Server : parte l'algoritmo
+ Server->API : Invia la risposta
+ alt : algoritmo partito con successo
+ API->Start: Messaggio di successo
+ loop fino a quando l'esecuzione non termina
+  API->Server: ogni 10 secondi invoca l'API status
+  end
+  Start->Utente : fa avanzare l'utente al menù principale
+ else algoritmo non partito
+ API->Start: Risposta con stato di errore
+ end
+else upload fallito
+ API->Start : messaggio d 'errore
+end
+@enduml

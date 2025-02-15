@@ -28,7 +28,7 @@ const Login = () =>{
                     navigate('/start')
                 }
             };
-            xhr.open('GET','http://<IP_EC2>:3000/api/v1/file/generated');
+            xhr.open('GET','http:/<IP EC2>:3000/api/v1/file/generated');
             xhr.send()
         }
     }
@@ -45,7 +45,7 @@ const Login = () =>{
                             <tr>
                                 <td>
                                     <b>Nome Utente:</b><br/><br/>
-                                    <input id="username" type="email" /><br/><br/>
+                                    <input placeholder="user" id="username" type="email" /><br/><br/>
                                     <b>Password:</b><br/><br/>
                                     <input id="pass" type="password" /><br/><br/>
                                     <button onClick={gotoStart}>Accedi</button>

@@ -1,0 +1,20 @@
+@startuml Diagramma di sequenza: rimozione dei docenti
+Utente->Menu : visualizza tabella dei docenti
+Utente->Menu : selziona docenti garanti da eliminare
+alt : docenti selezionati
+ alt : conferma eliminazione
+  Menu->API : invoca API di delete
+  API->Server : invia i dati da elimiare
+  Server->Server : elimina i dati
+  Server->API : restituisce un messaggio
+  alt : eliminazione eseguita
+   API->Menu : invia l'esito dell'eliminazione
+   Menu->Utente : riferisce che gli utenti sono stati eliminati
+  else 
+   API->Menu : invia messaggio di errore
+  end
+ end
+else docenti non selezionati
+ Menu->Utente : messaggio di errore
+end
+@enduml

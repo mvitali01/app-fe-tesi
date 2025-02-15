@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
     "react": "^19.0.0",
@@ -37,6 +36,10 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^7.0.2"
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "react-router-dom": "^6.29.0"
   }
 }

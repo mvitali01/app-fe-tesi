@@ -71,7 +71,7 @@ import DataTable from "./DataTable"
                 user_ids: values
             }; 
             var additionalParams = {};
-            console.log("Rquest body:"+JSON.stringify(body,'',2))
+            console.log("Request body:\n"+JSON.stringify(body,'',2))
             apigClient.apiV1UsersDeleteDelete(params, body, additionalParams)
                 .then(function(result){
                     console.log("Rimozione docenti:\n"+JSON.stringify(result,'',2))

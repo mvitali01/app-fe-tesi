@@ -63,7 +63,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload1',true)
+        xhr.open('POST','http://<IP EC2>:3000/api/v1/files/upload1',true)
         xhr.send(formData); //Invio dei dati
     }
     const upload_file_2=()=>{
@@ -84,7 +84,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload2',true)
+        xhr.open('POST','<IP EC2>:3000/api/v1/files/upload2',true)
         xhr.send(formData); //Invio dei dati
     }
     const upload_file_3=()=>{
@@ -105,7 +105,7 @@ const Start = () => {
             }
         };
         //Richiesta al server
-        xhr.open('POST','http://<IP_EC2>:3000/api/v1/files/upload3',true)
+        xhr.open('POST','http://<IP EC2>:3000/api/v1/files/upload3',true)
         xhr.send(formData); //Invio dei dati
     }
     const logo = <ImageComponent align="left" side="100"/>
@@ -124,7 +124,7 @@ const Start = () => {
                     <ol>
                         <li>
                             Il file excel con l'elenco dei professori:<br/>
-                            <input  id="excel_doc" name="fileP" type="file" accept=".xls, .xlsx" /><br/>
+                            <input placeholder="inputFile1" id="excel_doc" name="fileP" type="file" accept=".xls, .xlsx" /><br/>
                         </li>
                         <li>
                             Il file excel con l'elenco dei corsi di laurea:<br/>

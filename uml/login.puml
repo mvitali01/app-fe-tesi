@@ -1,0 +1,22 @@
+@startuml Diagramma di sequenza: login
+Utente->Login : Accede alla pagina
+Utente->Login : Inserisce le credenziali
+Login->Login : Vede se sono inserite le credenziali
+alt : credenziali inserite
+ Login->Login : controlla se sono corrette
+ alt : credenziali corrette
+  Login->API : invoca API per il file generato dall'algoritmo
+  API->Server : invia richiesta
+  Server->API : restituisce un messaggio
+  alt : il file esiste
+  Login->Utente : va al menù principale
+  else il file non esiste
+   Login->Utente : va alla pagina di caricamento dei file
+  end
+ else credenziali errate
+  Login->Utente : messaggio di errore
+end
+else credenziali assenti
+ Login->Utente : messaggio di errore
+end
+@enduml

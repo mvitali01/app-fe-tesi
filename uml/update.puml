@@ -1,0 +1,25 @@
+@startuml Diagramma di sequenza : sovrascrittura docenti
+Utente->Menu : visulizza docenti garanti
+Utente->Menu : l'utente seleziona il tasto di aggiornamento
+Menu->API : invoca l'API di start dell'algoritmo
+API->Server : invia richiesta
+Server->Server : fa partire l'algoritmo
+Server->API : invia un messaggio
+alt : algortimo partito
+ API->Menu : messaggio di successo
+ loop fino a quando l'esecuzione non termina
+   API->Server: ogni 10 secondi invoca l'API status
+ end
+ Menu->API : invoca l'API di overwrite del file
+ API->Server : invia la richiesta
+ Server->Server : sovrascrive i dati
+ Server->API : invia un messaggio
+ alt : sovrascrittura eseguita
+  API->Menu : invia messaggio di successo
+ else
+  API->Menu : invia messaggio di errore
+ end
+else algoritmo non partito
+API->Menu : invia messaggio di errore
+end
+@enduml

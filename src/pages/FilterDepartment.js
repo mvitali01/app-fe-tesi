@@ -7,7 +7,7 @@ const FilterDepartment=()=>{
     return(
         <>
             <form>
-                    <select id="dipartimento" name="dep" onChange={save_dep}>
+                    <select data-testid="seleziona" id="dipartimento" name="dep" onChange={save_dep}>
                         <option value="selection_dip" selected >Seleziona dipartimento</option>
                         <option value="BENI CULTURALI">BENI CULTURALI</option>
                         <option value="INGEGNERIA INNOVAZIONE">INGEGNERIA DELL'INNOVAZIONE</option>

@@ -49,7 +49,7 @@ const DataTable=()=>{
                 localStorage.setItem("contenuto",xhr.responseText)
             }
         };
-        xhr.open('GET','http://<IP_EC2>:3000/api/v1/file/generated');
+        xhr.open('GET','http://<IP EC2>:3000/api/v1/file/generated');
         xhr.send()
         check_consistance()
     }
